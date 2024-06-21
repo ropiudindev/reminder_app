@@ -61,78 +61,87 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       backgroundColor: Colors.purple,
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
+        clipBehavior: Clip.none,
         children: [
-          const SizedBox(
-            height: kToolbarHeight,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "Welcome to,\n",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                  color: Colors.white,
-                                ),
-                          ),
-                          TextSpan(
-                            text: "App Reminder!",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          )
-                        ],
-                      ),
+          SingleChildScrollView(
+            child: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: kToolbarHeight,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
                     ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 50.0,
-          ),
-          Container(
-            width: double.infinity,
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height - 257.48.h,
-            ),
-            decoration:  BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30.0),
-                topRight: Radius.circular(30.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Welcome to,\n",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                        ),
+                                  ),
+                                  TextSpan(
+                                    text: "App Reminder!",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50.0,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height - 200.0.h,
+                    ),
+                    decoration:  BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0),
+                      ),
+                      color: Colors.grey[100],
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 24.0,
+                    ),
+                    child: activeIndex == 0
+                        ? const Home()
+                        : activeIndex == 2
+                            ? const AddReminder()
+                            : const Home(),
+                  )
+                ],
               ),
-              color: Colors.grey[100],
             ),
-            padding: const EdgeInsets.symmetric(
-              vertical: 24.0,
-            ),
-            child: activeIndex == 0
-                ? const Home()
-                : activeIndex == 2
-                    ? const AddReminder()
-                    : const Home(),
-          )
+          ),
         ],
       ),
     );
@@ -194,30 +203,48 @@ class AddReminder extends StatelessWidget {
           ),
           child: ElevatedButton(
             child: const Text('Schedule notifications'),
-            onPressed: () {
+            onPressed: () async{
+              TimeOfDay initialTime = TimeOfDay.now();
+TimeOfDay? pickedTime = await showTimePicker(
+    context: context,
+    initialTime: initialTime,
+    builder: (BuildContext context, Widget? child) {
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: child??Container(),
+      );
+    },
+    
 
-               Navigator.of(context).push(
-            showPicker(
-                context: context,
-                value: _time,
-                sunrise: TimeOfDay(hour: 6, minute: 0), // optional
-                sunset: TimeOfDay(hour: 18, minute: 0), // optional
-                duskSpanInMinutes: 120, // optional
-                onChange: (value){
-                  _time = value;
-                },
-            ),
-        );
-              debugPrint('Notification Scheduled for $scheduleTime');
-              NotificationPlugin().scheduleNotification(
-                  title: 'Scheduled Notification',
-                  body: '$scheduleTime',
-                  scheduledNotificationDateTime: scheduleTime);
+);
+
+print('waktu dipilih ${pickedTime?.hour?? 'tidak dipilih'}');
+
+        //        Navigator.of(context).push(
+        //     showPicker(
+        //         context: context,
+        //         value: _time,
+        //         sunrise: TimeOfDay(hour: 6, minute: 0), // optional
+        //         sunset: TimeOfDay(hour: 18, minute: 0), // optional
+        //         duskSpanInMinutes: 120, // optional
+        //         onChange: (value){
+        //           _time = value;
+        //         },
+        //     ),
+        // );
+        //       debugPrint('Notification Scheduled for $scheduleTime');
+        //       NotificationPlugin().scheduleNotification(
+        //           title: 'Scheduled Notification',
+        //           body: '$scheduleTime',
+        //           scheduledNotificationDateTime: scheduleTime);
             },
           ),
         ),
     
-        const TextWidget(hintText: 'percobaan',)
+        const TextWidget(hintText: 'Title',),
+        SizedBox(
+          height: 200,
+          child: const TextWidget(hintText: 'Description',))
       ],
     );
   }
