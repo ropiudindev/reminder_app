@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:reminder_app/plugin/notification_plugin.dart';
 import 'package:reminder_app/presentation/widgets/reminder_card.dart';
+import 'package:reminder_app/presentation/widgets/text_widget.dart';
 
 DateTime scheduleTime = DateTime.now().add(const Duration(seconds: 10));
 
@@ -185,6 +186,8 @@ class AddReminder extends StatelessWidget {
             },
           ),
         ),
+    
+        const TextWidget(hintText: 'percobaan',)
       ],
     );
   }
