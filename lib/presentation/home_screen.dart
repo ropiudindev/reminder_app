@@ -328,40 +328,6 @@ class _AddReminderState extends State<AddReminder> {
                         titleController.text,
                         descController.text,)
                   ]));
-
-                  // TimeOfDay initialTime = TimeOfDay.now();
-                  // TimeOfDay? pickedTime = await showTimePicker(
-                  //   context: context,
-                  //   initialTime: initialTime,
-                  //   builder: (BuildContext context, Widget? child) {
-                  //     return Directionality(
-                  //       textDirection: TextDirection.rtl,
-                  //       child: child ?? Container(),
-                  //     );
-                  //   },
-                  // );
-
-                  // print('waktu dipilih ${pickedTime?.hour ?? 'tidak dipilih'}');
-
-                  //        Navigator.of(context).push(
-                  //     showPicker(
-                  //         context: context,
-                  //         value: _time,
-                  //         sunrise: TimeOfDay(hour: 6, minute: 0), // optional
-                  //         sunset: TimeOfDay(hour: 18, minute: 0), // optional
-                  //         duskSpanInMinutes: 120, // optional
-                  //         onChange: (value){
-                  //           _time = value;
-                  //         },
-                  //     ),
-                  // );
-                  // debugPrint('Notification Scheduled for $scheduleTime');
-                  // NotificationService().scheduleNotification(
-                  //     id: UniqueKey().hashCode,
-                  //     title: 'Scheduled Notification',
-                  //     body: '$scheduleTime',
-                  //     scheduledNotificationDateTime:
-                  //         DateTime.now().add(const Duration(seconds: 10)));
                 },
                 child: const Text('Insert reminder'),
               ),
