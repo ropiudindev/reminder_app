@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               reminders: r,
                             )
                           : activeIndex == 2
-                              ? const AddReminder()
+                              ?  AddReminder()
                               : Home(
                                   reminders: r,
                                 ),
@@ -222,9 +222,12 @@ class Home extends StatelessWidget {
 }
 
 class AddReminder extends StatelessWidget {
-  const AddReminder({
+   AddReminder({
     super.key,
   });
+
+  final titleController = TextEditingController();
+  final descController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -280,11 +283,12 @@ class AddReminder extends StatelessWidget {
               const SizedBox(
                 height: 10.0,
               ),
-              const TextWidget(
+               TextWidget(
                 topLabel: 'Title',
                 hintText: 'Title',
                 multiLines: false,
                 maxLines: 1,
+                controller: titleController,
               ),
               const SizedBox(
                 height: 10.0,
@@ -295,6 +299,7 @@ class AddReminder extends StatelessWidget {
                 height: 100.0.h,
                 minLines: 3,
                 multiLines: true,
+                controller: descController,
               ),
               const SizedBox(
                 height: 10.0,
@@ -306,11 +311,8 @@ class AddReminder extends StatelessWidget {
                     ReminderModelHive(
                         UniqueKey().hashCode,
                         DateTime.now().add(const Duration(seconds: 10)),
-                        'title',
-                        'Lorem Ipsum is simply dummy text of the'
-                            ' printing and typesetting industry. Lorem Ipsum has been '
-                            'the industry\'s standard dummy text ever since the '
-                            '1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.')
+                        titleController.text,
+                        descController.text,)
                   ]));
 
                   // TimeOfDay initialTime = TimeOfDay.now();

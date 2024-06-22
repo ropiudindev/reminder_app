@@ -9,6 +9,7 @@ class TextWidget extends StatelessWidget {
   final int? minLines;
   final bool multiLines;
   final int? maxLines;
+  final TextEditingController? controller;
 
   const TextWidget({
     super.key,
@@ -19,6 +20,7 @@ class TextWidget extends StatelessWidget {
     this.minLines ,
     this.multiLines = false,
     this.maxLines,
+    this.controller,
   });
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class TextWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
           ),
           child: TextFormField(
+            controller: controller,
             minLines: minLines,
             maxLines: maxLines,
             keyboardType: multiLines? TextInputType.multiline : TextInputType.text,
