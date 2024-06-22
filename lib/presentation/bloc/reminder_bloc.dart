@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:reminder_app/model/reminder_model.dart';
+import 'package:reminder_app/service/notification_service.dart';
 import 'package:reminder_app/service/reminder_service.dart';
 
 part 'reminder_event.dart';
@@ -25,7 +26,15 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
           reminder.title,
           reminder.description,
         );
+
+        NotificationService().scheduleNotification(
+          id: reminder.id,
+          title: reminder.title,
+          body: reminder.description,
+          scheduledNotificationDateTime: reminder.date,
+        );
       }
+
       add(
         const GetReminders(),
       );

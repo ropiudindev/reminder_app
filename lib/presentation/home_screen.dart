@@ -4,6 +4,7 @@ import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:reminder_app/extension/datetime_extension.dart';
 import 'package:reminder_app/model/reminder_model.dart';
 import 'package:reminder_app/presentation/bloc/reminder_bloc.dart';
 // import 'package:reminder_app/service/notification_service.dart';
@@ -162,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               reminders: r,
                             )
                           : activeIndex == 2
-                              ?  AddReminder()
+                              ?  const AddReminder()
                               : Home(
                                   reminders: r,
                                 ),
@@ -221,13 +222,21 @@ class Home extends StatelessWidget {
   }
 }
 
-class AddReminder extends StatelessWidget {
-   AddReminder({
+class AddReminder extends StatefulWidget {
+   const AddReminder({
     super.key,
   });
 
+  @override
+  State<AddReminder> createState() => _AddReminderState();
+}
+
+class _AddReminderState extends State<AddReminder> {
   final titleController = TextEditingController();
+
   final descController = TextEditingController();
+  DateTime selectedDate = DateTime.now();
+  DateTime selectedTime = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -245,10 +254,9 @@ class AddReminder extends StatelessWidget {
                 selectionColor: Colors.purple,
                 selectedTextColor: Colors.white,
                 onDateChange: (date) {
-                  // New date selected
-                  // setState(() {
-                  //   _selectedValue = date;
-                  // });
+                  setState(() {
+                    selectedDate = date;
+                  });
                 },
               ),
               const SizedBox(
@@ -264,7 +272,7 @@ class AddReminder extends StatelessWidget {
                 ),
                 child: TimePickerSpinner(
                   locale: const Locale('en', ''),
-                  time: DateTime.now(),
+                  time: selectedTime,
                   is24HourMode: false,
                   isShowSeconds: true,
                   itemHeight: 40,
@@ -274,9 +282,9 @@ class AddReminder extends StatelessWidget {
                       const TextStyle(fontSize: 24, color: Colors.blue),
                   isForce2Digits: true,
                   onTimeChange: (time) {
-                    // setState(() {
-                    //   dateTime = time;
-                    // });
+                    setState(() {
+                      selectedTime = time;
+                    });
                   },
                 ),
               ),
@@ -310,7 +318,7 @@ class AddReminder extends StatelessWidget {
                   BlocProvider.of<ReminderBloc>(context).add(AddReminderEvent([
                     ReminderModelHive(
                         UniqueKey().hashCode,
-                        DateTime.now().add(const Duration(seconds: 10)),
+                        selectedDate.at(selectedTime),
                         titleController.text,
                         descController.text,)
                   ]));
