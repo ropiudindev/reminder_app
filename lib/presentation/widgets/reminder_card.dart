@@ -3,84 +3,100 @@ import 'package:intl/intl.dart';
 import 'package:reminder_app/model/reminder_model.dart';
 
 class ReminderCard extends StatelessWidget {
-  final ReminderModelHive order;
+  final ReminderModelHive reminder;
 
   ReminderCard({super.key, 
-    required this.order,
+    required this.reminder,
   });
 
   // For formatting date
-  final DateFormat formatter = DateFormat('dd MMM yyyy');
+  final DateFormat formatter = DateFormat('dd MMM yyyy, hh:mm');
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        height: 150,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(
-            color: const Color.fromRGBO(220, 233, 245, 1),
+    return Column(
+      children: [
+        Container(
+          height: 150,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+            border: Border.all(
+              color: const Color.fromRGBO(220, 233, 245, 1),
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 16.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 37,
+                height: 37,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color.fromRGBO(221, 40, 81, 0.18),
+                ),
+                child: const Icon(
+                  Icons.calendar_month,
+                  color: Colors.purple,
+                ),
+              ),
+              const SizedBox(
+                width: 25.0,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                     Text(
+                      reminder.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.purple,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    
+                    const SizedBox(
+                      height: 5.0,
+                    ),
+                    textRow('Time ', formatter.format(reminder.date)),
+                    const SizedBox(
+                      height: 5.0,
+                    ),
+                    textRow(
+                      'Description ',
+                      reminder.description,
+                    )
+                  ],
+                ),
+              ),
+              InkWell(
+                child: Container(
+                  width: 37,
+                  height: 37,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color.fromRGBO(221, 40, 81, 0.18),
+                  ),
+                  child: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                ),
+                onTap: (){
+                  print('kena tap');
+                },
+              ),
+            ],
           ),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 37,
-              height: 37,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color.fromRGBO(221, 40, 81, 0.18),
-              ),
-              child: const Icon(
-                Icons.calendar_month,
-                color: Colors.purple,
-              ),
-            ),
-            const SizedBox(
-              width: 25.0,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'coba 1',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Color.fromRGBO(19, 22, 33, 1),
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  textRow(
-                    'Lokasi',
-                    'Bekasi',
-                  ),
-                  const SizedBox(
-                    height: 5.0,
-                  ),
-                  textRow('date ', formatter.format(order.date)),
-                  const SizedBox(
-                    height: 5.0,
-                  ),
-                  textRow(
-                    'title',
-                    'coba',
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+        SizedBox(height: 10.0,)
+      ],
     );
   }
 }
