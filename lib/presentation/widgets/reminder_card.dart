@@ -5,12 +5,13 @@ import 'package:reminder_app/model/reminder_model.dart';
 class ReminderCard extends StatelessWidget {
   final ReminderModelHive reminder;
 
-  ReminderCard({super.key, 
+  ReminderCard({
+    super.key,
     required this.reminder,
   });
 
   // For formatting date
-  final DateFormat formatter = DateFormat('dd MMM yyyy, hh:mm');
+  final DateFormat formatter = DateFormat('dd MMM yyyy, HH:mm');
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +30,41 @@ class ReminderCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 37,
-                height: 37,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color.fromRGBO(221, 40, 81, 0.18),
-                ),
-                child: const Icon(
-                  Icons.calendar_month,
-                  color: Colors.purple,
-                ),
+              Column(
+                children: [
+                  Container(
+                    width: 37,
+                    height: 37,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color.fromRGBO(221, 40, 81, 0.18),
+                    ),
+                    child: const Icon(
+                      Icons.calendar_month,
+                      color: Colors.purple,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  InkWell(
+                    child: Container(
+                      width: 37,
+                      height: 37,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color.fromRGBO(221, 40, 81, 0.18),
+                      ),
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                    ),
+                    onTap: () {
+                      print('kena tap');
+                    },
+                  ),
+                ],
               ),
               const SizedBox(
                 width: 25.0,
@@ -48,7 +73,7 @@ class ReminderCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
+                    Text(
                       reminder.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -60,45 +85,39 @@ class ReminderCard extends StatelessWidget {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    
                     const SizedBox(
                       height: 5.0,
                     ),
                     textRow('Time ', formatter.format(reminder.date)),
+                    textRow('Status ', getStatus(reminder.date)),
                     const SizedBox(
                       height: 5.0,
                     ),
-                    textRow(
-                      'Description ',
+                    Text(
                       reminder.description,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(19, 22, 33, 1),
+                        fontSize: 14.0,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     )
                   ],
                 ),
               ),
-              InkWell(
-                child: Container(
-                  width: 37,
-                  height: 37,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color.fromRGBO(221, 40, 81, 0.18),
-                  ),
-                  child: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                ),
-                onTap: (){
-                  print('kena tap');
-                },
-              ),
             ],
           ),
         ),
-        SizedBox(height: 10.0,)
+        const SizedBox(
+          height: 10.0,
+        )
       ],
     );
   }
+}
+
+String getStatus(DateTime date) {
+  return date.isBefore(DateTime.now()) ? 'Done' : 'Incoming';
 }
 
 Widget textRow(String textOne, String textTwo) {
@@ -120,6 +139,8 @@ Widget textRow(String textOne, String textTwo) {
           color: Color.fromRGBO(19, 22, 33, 1),
           fontSize: 14.0,
         ),
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
       ),
     ],
   );
