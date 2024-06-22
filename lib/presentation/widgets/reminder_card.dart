@@ -12,7 +12,6 @@ class ReminderCard extends StatelessWidget {
     required this.onDelete,
   });
 
-  // For formatting date
   final DateFormat formatter = DateFormat('dd MMM yyyy, hh:mm a');
 
   @override

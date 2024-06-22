@@ -1,6 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
-// import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,15 +7,12 @@ import 'package:pie_chart/pie_chart.dart';
 import 'package:reminder_app/extension/datetime_extension.dart';
 import 'package:reminder_app/model/reminder_model.dart';
 import 'package:reminder_app/presentation/bloc/reminder_bloc.dart';
-// import 'package:reminder_app/service/notification_service.dart';
 import 'package:reminder_app/presentation/widgets/reminder_card.dart';
 import 'package:reminder_app/presentation/widgets/text_widget.dart';
 import 'package:time_picker_spinner/time_picker_spinner.dart';
-// import 'package:day_night_time_picker/lib/state/time.dart' as t;
 
 DateTime scheduleTime = DateTime.now().add(const Duration(seconds: 10));
 
-// t.Time _time = t.Time(hour: scheduleTime.hour, minute: scheduleTime.minute);
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
