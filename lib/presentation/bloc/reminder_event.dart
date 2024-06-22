@@ -16,7 +16,7 @@ class GetReminders extends ReminderEvent {
 }
 
 class AddReminderEvent extends ReminderEvent {
-  final List<ReminderModelHive> reminders;
+  final List<ReminderModelHive?> reminders;
 
   const AddReminderEvent(this.reminders);
 
@@ -45,3 +45,12 @@ class RegisterServicesEvent extends ReminderEvent {
   List<Object?> get props => [];
 }
 
+
+class FilterReminderEvent extends ReminderEvent {
+  final List<ReminderModelHive?> reminders;
+
+  const FilterReminderEvent(this.reminders);
+
+  @override
+  List<Object?> get props => [reminders];
+}
