@@ -13,7 +13,7 @@ class ReminderCard extends StatelessWidget {
   });
 
   // For formatting date
-  final DateFormat formatter = DateFormat('dd MMM yyyy, HH:mm');
+  final DateFormat formatter = DateFormat('dd MMM yyyy, hh:mm a');
 
   @override
   Widget build(BuildContext context) {
