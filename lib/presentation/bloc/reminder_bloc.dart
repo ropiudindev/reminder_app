@@ -34,5 +34,10 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
       await _reminderService.removeReminder(event.id);
       add(const GetReminders());
     });
+
+     on<RegisterServicesEvent>((event, emit) async {
+      await _reminderService.init();
+      emit(ReminderInitial());
+    });
   }
 }

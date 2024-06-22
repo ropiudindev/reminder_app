@@ -40,3 +40,8 @@ class DeleteReminderEvent extends ReminderEvent {
   List<Object?> get props => [id];
 }
 
+class RegisterServicesEvent extends ReminderEvent {
+  @override
+  List<Object?> get props => [];
+}
+
