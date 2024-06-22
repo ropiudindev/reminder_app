@@ -162,7 +162,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? Home(
                               reminders: r,
                             )
-                          : activeIndex == 2
+                          :activeIndex == 1
+                          ? Home(
+                              reminders: r.where((element) => element!.date.isAfter(DateTime.now())).toList(),
+                            ): activeIndex == 3
+                          ? Home(
+                              reminders: r.where((element) => element!.date.isBefore(DateTime.now())).toList(),
+                            ):activeIndex == 2
                               ?  const AddReminder()
                               : Home(
                                   reminders: r,
