@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:reminder_app/model/reminder_model.dart';
 
 class ReminderService {
-  late Box<ReminderModelHive?>? _reminder;
+  Box<ReminderModelHive?>? _reminder;
 
   Future<void> init() async {
     Hive.registerAdapter(ReminderModelHiveAdapter());
