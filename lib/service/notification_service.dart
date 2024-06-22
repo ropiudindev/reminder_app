@@ -13,8 +13,12 @@ class NotificationService {
         requestAlertPermission: true,
         requestBadgePermission: true,
         requestSoundPermission: true,
-        onDidReceiveLocalNotification:
-            (int id, String? title, String? body, String? payload) async {});
+        onDidReceiveLocalNotification: (
+          int id,
+          String? title,
+          String? body,
+          String? payload,
+        ) async {});
 
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
@@ -42,10 +46,18 @@ class NotificationService {
     );
   }
 
-  Future showNotification(
-      {int id = 0, String? title, String? body, String? payLoad}) async {
+  Future showNotification({
+    int id = 0,
+    String? title,
+    String? body,
+    String? payLoad,
+  }) async {
     return notificationsPlugin.show(
         id, title, body, await notificationDetails());
+  }
+
+  Future remvoveNotification(int id) {
+    return notificationsPlugin.cancel(id);
   }
 
   Future scheduleNotification(
