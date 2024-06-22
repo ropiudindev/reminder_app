@@ -8,11 +8,11 @@ part 'reminder_event.dart';
 part 'reminder_state.dart';
 
 class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
-  final ReminderService _reminderervice;
+  final ReminderService _reminderService;
 
-  ReminderBloc(this._reminderervice) : super(ReminderInitial()) {
+  ReminderBloc(this._reminderService) : super(ReminderInitial()) {
     on<GetReminders>((event, emit) {
-      final reminder = _reminderervice.getReminder();
+      final reminder = _reminderService.getReminder();
       emit(ReminderLoadedState(
         reminder,
       ));
@@ -20,18 +20,18 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
 
     on<AddReminderEvent>((event, emit) async {
       for (var reminder in event.reminders) {
-      _reminderervice.addReminder(reminder.id,reminder.date, reminder.title, reminder.description,);
+      _reminderService.addReminder(reminder.id,reminder.date, reminder.title, reminder.description,);
       }
       add(const GetReminders(),);
     });
 
     on<UpdateReminderEvent>((event, emit) async {
-      await _reminderervice.updateReminder(event.reminder);
+      await _reminderService.updateReminder(event.reminder);
       add(const GetReminders());
     });
 
      on<DeleteReminderEvent>((event, emit) async {
-      await _reminderervice.removeReminder(event.id);
+      await _reminderService.removeReminder(event.id);
       add(const GetReminders());
     });
   }
