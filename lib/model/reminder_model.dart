@@ -4,8 +4,8 @@ part 'reminder_model.g.dart';
 
 @HiveType(typeId: 1)
 class ReminderModelHive extends HiveObject {
-  @HiveField(0)
-  final String id;
+  @HiveField(4)
+  final int id;
   @HiveField(1)
   final DateTime date;
   @HiveField(2)

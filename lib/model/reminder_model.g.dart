@@ -17,7 +17,7 @@ class ReminderModelHiveAdapter extends TypeAdapter<ReminderModelHive> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ReminderModelHive(
-      fields[0] as String,
+      fields[4] as int,
       fields[1] as DateTime,
       fields[2] as String,
       fields[3] as String,
@@ -28,7 +28,7 @@ class ReminderModelHiveAdapter extends TypeAdapter<ReminderModelHive> {
   void write(BinaryWriter writer, ReminderModelHive obj) {
     writer
       ..writeByte(4)
-      ..writeByte(0)
+      ..writeByte(4)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.date)

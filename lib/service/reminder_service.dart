@@ -15,7 +15,7 @@ class ReminderService {
   }
 
   void addReminder(
-    final String id,
+    final int id,
     final DateTime date,
     final String title,
     final String description,
@@ -30,7 +30,7 @@ class ReminderService {
     );
   }
 
-  Future<void> removeReminder(final String id) async {
+  Future<void> removeReminder(final int id) async {
     final reminderToRemove =
         _reminder.values.firstWhere((element) => element.id == id);
     await reminderToRemove.delete();
