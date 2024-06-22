@@ -27,6 +27,17 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.purple[50],
+        title: const Text(
+          "Reminder",
+          style: TextStyle(
+            color: Colors.purple,
+            fontSize: 18,
+          ),
+        ),
+        elevation: 0.0,
+      ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.grey[100]!,
         buttonBackgroundColor: Colors.purple,
@@ -123,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context, state) {
                     List<ReminderModelHive?> r = [];
                     if(state is ReminderInitial){
-                       BlocProvider.of<ReminderBloc>(context).add(GetReminders());
+                       BlocProvider.of<ReminderBloc>(context).add(const GetReminders());
                     }
                     if (state is ReminderLoadedState) {
                       r = state.reminders;
@@ -180,7 +191,7 @@ class Home extends StatelessWidget {
           child: Column(
             children: [
               ...List.generate(reminders.length, (index) =>ReminderCard(
-                  order: ReminderModelHive(
+                  reminder: ReminderModelHive(
                       reminders[index]!.id,
                       reminders[index]!.date,
                       reminders[index]!.title,
