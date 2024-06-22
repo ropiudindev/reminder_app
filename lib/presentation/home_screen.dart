@@ -10,7 +10,6 @@ import 'package:reminder_app/presentation/page/reminder_list.dart';
 
 DateTime scheduleTime = DateTime.now().add(const Duration(seconds: 10));
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -137,44 +136,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       remindersInitial = state.reminders;
                     }
                     return Container(
-                      width: double.infinity,
-                      constraints: BoxConstraints(
-                        minHeight: MediaQuery.of(context).size.height - 200.0.h,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(30.0),
-                          topRight: Radius.circular(30.0),
+                        width: double.infinity,
+                        constraints: BoxConstraints(
+                          minHeight:
+                              MediaQuery.of(context).size.height - 200.0.h,
                         ),
-                        color: Colors.grey[100],
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 24.0,
-                      ),
-                      child: activeIndex == 0
-                          ? ReminderList(
-                              reminders: remindersInitial,
-                            )
-                          : activeIndex == 1
-                              ? ReminderList(
-                                  reminders: remindersInitial
-                                      .where((element) =>
-                                          element!.date.isAfter(DateTime.now()))
-                                      .toList(),
-                                )
-                              : activeIndex == 3
-                                  ? ReminderList(
-                                      reminders: remindersInitial
-                                          .where((element) => element!.date
-                                              .isBefore(DateTime.now()))
-                                          .toList(),
-                                    )
-                                  : activeIndex == 2
-                                      ? const AddReminder()
-                                      : InformationUsage(
-                                          reminders: remindersInitial,
-                                        ),
-                    );
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(30.0),
+                            topRight: Radius.circular(30.0),
+                          ),
+                          color: Colors.grey[100],
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 24.0,
+                        ),
+                        child: getWidget(activeIndex, remindersInitial));
                   },
                 )
               ],
@@ -183,5 +160,32 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  Widget getWidget(int index, List<ReminderModelHive?> remindersInitial) {
+    switch (index) {
+      case 0:
+        return ReminderList(reminders: remindersInitial);
+      case 1:
+        return ReminderList(
+          reminders: remindersInitial
+              .where((element) => element!.date.isAfter(DateTime.now()))
+              .toList(),
+        );
+      case 2:
+        return const AddReminder();
+      case 3:
+        return ReminderList(
+          reminders: remindersInitial
+              .where((element) => element!.date.isBefore(DateTime.now()))
+              .toList(),
+        );
+      case 4:
+        return InformationUsage(
+          reminders: remindersInitial,
+        );
+      default:
+        return Container();
+    }
   }
 }
