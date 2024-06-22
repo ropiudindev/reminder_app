@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:reminder_app/presentation/home_screen.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
-import 'plugin/notification_plugin.dart';
+import 'service/notification_service.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  NotificationPlugin().initNotification();
+  NotificationService().initNotification();
   tz.initializeTimeZones();
   runApp(const MyApp());
 }
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
-          title: 'Flutter Notifications',
+          title: 'Reminder App',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primarySwatch: Colors.blue,

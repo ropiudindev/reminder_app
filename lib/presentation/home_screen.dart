@@ -3,7 +3,7 @@ import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:reminder_app/plugin/notification_plugin.dart';
+import 'package:reminder_app/service/notification_service.dart';
 import 'package:reminder_app/presentation/widgets/reminder_card.dart';
 import 'package:reminder_app/presentation/widgets/text_widget.dart';
 import 'package:day_night_time_picker/lib/state/time.dart' as t;
