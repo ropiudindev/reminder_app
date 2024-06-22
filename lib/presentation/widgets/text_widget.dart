@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class TextWidget extends StatelessWidget {
   final String hintText;
   final IconData? prefixIcon;
   final double height;
   final String topLabel;
+  final int? minLines;
+  final bool multiLines;
+  final int? maxLines;
 
-  const TextWidget({super.key, 
+  const TextWidget({
+    super.key,
     required this.hintText,
     this.prefixIcon,
     this.height = 48.0,
     this.topLabel = "",
+    this.minLines ,
+    this.multiLines = false,
+    this.maxLines,
   });
   @override
   Widget build(BuildContext context) {
@@ -28,6 +34,9 @@ class TextWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
           ),
           child: TextFormField(
+            minLines: minLines,
+            maxLines: maxLines,
+            keyboardType: multiLines? TextInputType.multiline : TextInputType.text,
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(

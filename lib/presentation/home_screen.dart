@@ -201,9 +201,10 @@ class Home extends StatelessWidget {
                   ...List.generate(
                       reminders.length,
                       (index) => ReminderCard(
-                        onDelete: (){
-                          BlocProvider.of<ReminderBloc>(context).add(DeleteReminderEvent(reminders[index]!.id));
-                        },
+                          onDelete: () {
+                            BlocProvider.of<ReminderBloc>(context)
+                                .add(DeleteReminderEvent(reminders[index]!.id));
+                          },
                           reminder: ReminderModelHive(
                               reminders[index]!.id,
                               reminders[index]!.date,
@@ -228,83 +229,93 @@ class AddReminder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ReminderBloc, ReminderState>(
       builder: (context, state) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DatePicker(
-              DateTime.now(),
-              initialSelectedDate: DateTime.now(),
-              selectionColor: Colors.purple,
-              selectedTextColor: Colors.white,
-              onDateChange: (date) {
-                // New date selected
-                // setState(() {
-                //   _selectedValue = date;
-                // });
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24.0,
-              ),
-              child: ElevatedButton(
-                child: const Text('Schedule notifications'),
-                onPressed: () async {
-                  BlocProvider.of<ReminderBloc>(context).add(AddReminderEvent([
-                    ReminderModelHive(
-                        UniqueKey().hashCode,
-                        DateTime.now().add(Duration(hours: 1)),
-                        'title',
-                        'Lorem Ipsum is simply dummy text of the'
-                            ' printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.')
-                  ]));
-
-                  // TimeOfDay initialTime = TimeOfDay.now();
-                  // TimeOfDay? pickedTime = await showTimePicker(
-                  //   context: context,
-                  //   initialTime: initialTime,
-                  //   builder: (BuildContext context, Widget? child) {
-                  //     return Directionality(
-                  //       textDirection: TextDirection.rtl,
-                  //       child: child ?? Container(),
-                  //     );
-                  //   },
-                  // );
-
-                  // print('waktu dipilih ${pickedTime?.hour ?? 'tidak dipilih'}');
-
-                  //        Navigator.of(context).push(
-                  //     showPicker(
-                  //         context: context,
-                  //         value: _time,
-                  //         sunrise: TimeOfDay(hour: 6, minute: 0), // optional
-                  //         sunset: TimeOfDay(hour: 18, minute: 0), // optional
-                  //         duskSpanInMinutes: 120, // optional
-                  //         onChange: (value){
-                  //           _time = value;
-                  //         },
-                  //     ),
-                  // );
-                  // debugPrint('Notification Scheduled for $scheduleTime');
-                  // NotificationService().scheduleNotification(
-                  //     id: UniqueKey().hashCode,
-                  //     title: 'Scheduled Notification',
-                  //     body: '$scheduleTime',
-                  //     scheduledNotificationDateTime:
-                  //         DateTime.now().add(const Duration(seconds: 10)));
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DatePicker(
+                DateTime.now(),
+                initialSelectedDate: DateTime.now(),
+                selectionColor: Colors.purple,
+                selectedTextColor: Colors.white,
+                onDateChange: (date) {
+                  // New date selected
+                  // setState(() {
+                  //   _selectedValue = date;
+                  // });
                 },
               ),
-            ),
-            const TextWidget(
-              hintText: 'Title',
-            ),
-            const SizedBox(
-                height: 200,
-                child: TextWidget(
-                  hintText: 'Description',
-                ))
-          ],
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24.0,
+                ),
+                child: ElevatedButton(
+                  child: const Text('Schedule notifications'),
+                  onPressed: () async {
+                    BlocProvider.of<ReminderBloc>(context)
+                        .add(AddReminderEvent([
+                      ReminderModelHive(
+                          UniqueKey().hashCode,
+                          DateTime.now().add(const Duration(seconds: 10)),
+                          'title',
+                          'Lorem Ipsum is simply dummy text of the'
+                              ' printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.')
+                    ]));
+
+                    // TimeOfDay initialTime = TimeOfDay.now();
+                    // TimeOfDay? pickedTime = await showTimePicker(
+                    //   context: context,
+                    //   initialTime: initialTime,
+                    //   builder: (BuildContext context, Widget? child) {
+                    //     return Directionality(
+                    //       textDirection: TextDirection.rtl,
+                    //       child: child ?? Container(),
+                    //     );
+                    //   },
+                    // );
+
+                    // print('waktu dipilih ${pickedTime?.hour ?? 'tidak dipilih'}');
+
+                    //        Navigator.of(context).push(
+                    //     showPicker(
+                    //         context: context,
+                    //         value: _time,
+                    //         sunrise: TimeOfDay(hour: 6, minute: 0), // optional
+                    //         sunset: TimeOfDay(hour: 18, minute: 0), // optional
+                    //         duskSpanInMinutes: 120, // optional
+                    //         onChange: (value){
+                    //           _time = value;
+                    //         },
+                    //     ),
+                    // );
+                    // debugPrint('Notification Scheduled for $scheduleTime');
+                    // NotificationService().scheduleNotification(
+                    //     id: UniqueKey().hashCode,
+                    //     title: 'Scheduled Notification',
+                    //     body: '$scheduleTime',
+                    //     scheduledNotificationDateTime:
+                    //         DateTime.now().add(const Duration(seconds: 10)));
+                  },
+                ),
+              ),
+               const TextWidget(
+                topLabel: 'Title',
+                hintText: 'Title',
+                multiLines: false,
+                maxLines: 1,
+              ),
+              TextWidget(
+                topLabel: 'Description',
+                hintText: 'Description',
+                height: 100.0.h,
+                minLines: 3,
+                multiLines: true,
+              ),
+             
+            ],
+          ),
         );
       },
     );
