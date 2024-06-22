@@ -4,10 +4,12 @@ import 'package:reminder_app/model/reminder_model.dart';
 
 class ReminderCard extends StatelessWidget {
   final ReminderModelHive reminder;
+  final Function() onDelete;
 
   ReminderCard({
     super.key,
     required this.reminder,
+    required this.onDelete,
   });
 
   // For formatting date
@@ -48,6 +50,7 @@ class ReminderCard extends StatelessWidget {
                     height: 10.0,
                   ),
                   InkWell(
+                    onTap:onDelete,
                     child: Container(
                       width: 37,
                       height: 37,
@@ -60,9 +63,6 @@ class ReminderCard extends StatelessWidget {
                         color: Colors.red,
                       ),
                     ),
-                    onTap: () {
-                      print('kena tap');
-                    },
                   ),
                 ],
               ),

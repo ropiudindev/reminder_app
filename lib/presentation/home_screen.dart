@@ -201,6 +201,9 @@ class Home extends StatelessWidget {
                   ...List.generate(
                       reminders.length,
                       (index) => ReminderCard(
+                        onDelete: (){
+                          BlocProvider.of<ReminderBloc>(context).add(DeleteReminderEvent(reminders[index]!.id));
+                        },
                           reminder: ReminderModelHive(
                               reminders[index]!.id,
                               reminders[index]!.date,
