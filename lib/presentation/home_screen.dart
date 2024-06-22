@@ -133,8 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 BlocBuilder<ReminderBloc, ReminderState>(
                   builder: (context, state) {
                     List<ReminderModelHive?> r = [];
-                    if(state is ReminderInitial){
-                       BlocProvider.of<ReminderBloc>(context).add(const GetReminders());
+                    if (state is ReminderInitial) {
+                      BlocProvider.of<ReminderBloc>(context)
+                          .add(const GetReminders());
                     }
                     if (state is ReminderLoadedState) {
                       r = state.reminders;
@@ -156,10 +157,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         vertical: 24.0,
                       ),
                       child: activeIndex == 0
-                          ?  Home(reminders: r,)
+                          ? Home(
+                              reminders: r,
+                            )
                           : activeIndex == 2
                               ? const AddReminder()
-                              :  Home(reminders: r,),
+                              : Home(
+                                  reminders: r,
+                                ),
                     );
                   },
                 )
@@ -173,34 +178,40 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class Home extends StatelessWidget {
-  final  List<ReminderModelHive?> reminders;
+  final List<ReminderModelHive?> reminders;
   const Home({
-    super.key, required this.reminders,
+    super.key,
+    required this.reminders,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 24.0,
-          ),
-          child: Column(
-            children: [
-              ...List.generate(reminders.length, (index) =>ReminderCard(
-                  reminder: ReminderModelHive(
-                      reminders[index]!.id,
-                      reminders[index]!.date,
-                      reminders[index]!.title,
-                      reminders[index]!.description))),
-             
-            ],
-          ),
-        ),
-      ],
+    return BlocBuilder<ReminderBloc, ReminderState>(
+      builder: (context, state) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+              ),
+              child: Column(
+                children: [
+                  ...List.generate(
+                      reminders.length,
+                      (index) => ReminderCard(
+                          reminder: ReminderModelHive(
+                              reminders[index]!.id,
+                              reminders[index]!.date,
+                              reminders[index]!.title,
+                              reminders[index]!.description))),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -238,8 +249,12 @@ class AddReminder extends StatelessWidget {
                 child: const Text('Schedule notifications'),
                 onPressed: () async {
                   BlocProvider.of<ReminderBloc>(context).add(AddReminderEvent([
-                    ReminderModelHive(UniqueKey().hashCode, DateTime.now().add(Duration(hours: 1)),
-                        'title', 'Lorem Ipsum is simply dummy text of the'' printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.')
+                    ReminderModelHive(
+                        UniqueKey().hashCode,
+                        DateTime.now().add(Duration(hours: 1)),
+                        'title',
+                        'Lorem Ipsum is simply dummy text of the'
+                            ' printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.')
                   ]));
 
                   // TimeOfDay initialTime = TimeOfDay.now();

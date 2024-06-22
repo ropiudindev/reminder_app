@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:reminder_app/model/reminder_model.dart';
@@ -20,9 +19,16 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
 
     on<AddReminderEvent>((event, emit) async {
       for (var reminder in event.reminders) {
-      _reminderService.addReminder(reminder.id,reminder.date, reminder.title, reminder.description,);
+        _reminderService.addReminder(
+          reminder!.id,
+          reminder.date,
+          reminder.title,
+          reminder.description,
+        );
       }
-      add(const GetReminders(),);
+      add(
+        const GetReminders(),
+      );
     });
 
     on<UpdateReminderEvent>((event, emit) async {
@@ -30,12 +36,12 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
       add(const GetReminders());
     });
 
-     on<DeleteReminderEvent>((event, emit) async {
+    on<DeleteReminderEvent>((event, emit) async {
       await _reminderService.removeReminder(event.id);
       add(const GetReminders());
     });
 
-     on<RegisterServicesEvent>((event, emit) async {
+    on<RegisterServicesEvent>((event, emit) async {
       await _reminderService.init();
       emit(ReminderInitial());
     });
