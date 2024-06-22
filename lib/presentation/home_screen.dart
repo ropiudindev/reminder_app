@@ -9,6 +9,7 @@ import 'package:reminder_app/presentation/bloc/reminder_bloc.dart';
 // import 'package:reminder_app/service/notification_service.dart';
 import 'package:reminder_app/presentation/widgets/reminder_card.dart';
 import 'package:reminder_app/presentation/widgets/text_widget.dart';
+import 'package:time_picker_spinner/time_picker_spinner.dart';
 // import 'package:day_night_time_picker/lib/state/time.dart' as t;
 
 DateTime scheduleTime = DateTime.now().add(const Duration(seconds: 10));
@@ -247,64 +248,46 @@ class AddReminder extends StatelessWidget {
                   // });
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
+              const SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.purple,
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(
+                    color: const Color.fromRGBO(220, 233, 245, 1),
+                  ),
                 ),
-                child: ElevatedButton(
-                  child: const Text('Schedule notifications'),
-                  onPressed: () async {
-                    BlocProvider.of<ReminderBloc>(context)
-                        .add(AddReminderEvent([
-                      ReminderModelHive(
-                          UniqueKey().hashCode,
-                          DateTime.now().add(const Duration(seconds: 10)),
-                          'title',
-                          'Lorem Ipsum is simply dummy text of the'
-                              ' printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.')
-                    ]));
-
-                    // TimeOfDay initialTime = TimeOfDay.now();
-                    // TimeOfDay? pickedTime = await showTimePicker(
-                    //   context: context,
-                    //   initialTime: initialTime,
-                    //   builder: (BuildContext context, Widget? child) {
-                    //     return Directionality(
-                    //       textDirection: TextDirection.rtl,
-                    //       child: child ?? Container(),
-                    //     );
-                    //   },
-                    // );
-
-                    // print('waktu dipilih ${pickedTime?.hour ?? 'tidak dipilih'}');
-
-                    //        Navigator.of(context).push(
-                    //     showPicker(
-                    //         context: context,
-                    //         value: _time,
-                    //         sunrise: TimeOfDay(hour: 6, minute: 0), // optional
-                    //         sunset: TimeOfDay(hour: 18, minute: 0), // optional
-                    //         duskSpanInMinutes: 120, // optional
-                    //         onChange: (value){
-                    //           _time = value;
-                    //         },
-                    //     ),
-                    // );
-                    // debugPrint('Notification Scheduled for $scheduleTime');
-                    // NotificationService().scheduleNotification(
-                    //     id: UniqueKey().hashCode,
-                    //     title: 'Scheduled Notification',
-                    //     body: '$scheduleTime',
-                    //     scheduledNotificationDateTime:
-                    //         DateTime.now().add(const Duration(seconds: 10)));
+                child: TimePickerSpinner(
+                  locale: const Locale('en', ''),
+                  time: DateTime.now(),
+                  is24HourMode: false,
+                  isShowSeconds: true,
+                  itemHeight: 40,
+                  normalTextStyle:
+                      const TextStyle(fontSize: 24, color: Colors.white),
+                  highlightedTextStyle:
+                      const TextStyle(fontSize: 24, color: Colors.blue),
+                  isForce2Digits: true,
+                  onTimeChange: (time) {
+                    // setState(() {
+                    //   dateTime = time;
+                    // });
                   },
                 ),
               ),
-               const TextWidget(
+              const SizedBox(
+                height: 10.0,
+              ),
+              const TextWidget(
                 topLabel: 'Title',
                 hintText: 'Title',
                 multiLines: false,
                 maxLines: 1,
+              ),
+              const SizedBox(
+                height: 10.0,
               ),
               TextWidget(
                 topLabel: 'Description',
@@ -313,7 +296,59 @@ class AddReminder extends StatelessWidget {
                 minLines: 3,
                 multiLines: true,
               ),
-             
+              const SizedBox(
+                height: 10.0,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
+                onPressed: () async {
+                  BlocProvider.of<ReminderBloc>(context).add(AddReminderEvent([
+                    ReminderModelHive(
+                        UniqueKey().hashCode,
+                        DateTime.now().add(const Duration(seconds: 10)),
+                        'title',
+                        'Lorem Ipsum is simply dummy text of the'
+                            ' printing and typesetting industry. Lorem Ipsum has been '
+                            'the industry\'s standard dummy text ever since the '
+                            '1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.')
+                  ]));
+
+                  // TimeOfDay initialTime = TimeOfDay.now();
+                  // TimeOfDay? pickedTime = await showTimePicker(
+                  //   context: context,
+                  //   initialTime: initialTime,
+                  //   builder: (BuildContext context, Widget? child) {
+                  //     return Directionality(
+                  //       textDirection: TextDirection.rtl,
+                  //       child: child ?? Container(),
+                  //     );
+                  //   },
+                  // );
+
+                  // print('waktu dipilih ${pickedTime?.hour ?? 'tidak dipilih'}');
+
+                  //        Navigator.of(context).push(
+                  //     showPicker(
+                  //         context: context,
+                  //         value: _time,
+                  //         sunrise: TimeOfDay(hour: 6, minute: 0), // optional
+                  //         sunset: TimeOfDay(hour: 18, minute: 0), // optional
+                  //         duskSpanInMinutes: 120, // optional
+                  //         onChange: (value){
+                  //           _time = value;
+                  //         },
+                  //     ),
+                  // );
+                  // debugPrint('Notification Scheduled for $scheduleTime');
+                  // NotificationService().scheduleNotification(
+                  //     id: UniqueKey().hashCode,
+                  //     title: 'Scheduled Notification',
+                  //     body: '$scheduleTime',
+                  //     scheduledNotificationDateTime:
+                  //         DateTime.now().add(const Duration(seconds: 10)));
+                },
+                child: const Text('Insert reminder'),
+              ),
             ],
           ),
         );
