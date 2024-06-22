@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:reminder_app/model/reminder_model.dart';
 
 class ReminderCard extends StatelessWidget {
-  final ReminderModel order;
+  final ReminderModelHive order;
 
   ReminderCard({super.key, 
     required this.order,
@@ -66,7 +67,7 @@ class ReminderCard extends StatelessWidget {
                   const SizedBox(
                     height: 5.0,
                   ),
-                  textRow('date ', formatter.format(order.reminderDate)),
+                  textRow('date ', formatter.format(order.date)),
                   const SizedBox(
                     height: 5.0,
                   ),

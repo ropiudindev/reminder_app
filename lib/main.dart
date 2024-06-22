@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             child: BlocProvider(
               create: (context) =>
                   ReminderBloc(RepositoryProvider.of<ReminderService>(context))
-                   ..add(RegisterServicesEvent())..add(const GetReminders()),
+                   ..add(RegisterServicesEvent()),
               child: MaterialApp(
                 title: 'Reminder App',
                 debugShowCheckedModeBanner: false,

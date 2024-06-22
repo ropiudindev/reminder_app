@@ -121,7 +121,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 BlocBuilder<ReminderBloc, ReminderState>(
                   builder: (context, state) {
+                    List<ReminderModelHive?> r = [];
+                    if(state is ReminderInitial){
+                       BlocProvider.of<ReminderBloc>(context).add(GetReminders());
+                    }
                     if (state is ReminderLoadedState) {
+                      r = state.reminders;
                       print('masuk datanya ${state.reminders}');
                     }
                     return Container(
@@ -140,10 +145,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         vertical: 24.0,
                       ),
                       child: activeIndex == 0
-                          ? const Home()
+                          ?  Home(reminders: r,)
                           : activeIndex == 2
                               ? const AddReminder()
-                              : const Home(),
+                              :  Home(reminders: r,),
                     );
                   },
                 )
@@ -157,8 +162,9 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class Home extends StatelessWidget {
+  final  List<ReminderModelHive?> reminders;
   const Home({
-    super.key,
+    super.key, required this.reminders,
   });
 
   @override
@@ -173,12 +179,13 @@ class Home extends StatelessWidget {
           ),
           child: Column(
             children: [
-              ReminderCard(
-                  order: ReminderModel(
-                      id: 0,
-                      reminderDate: DateTime.now(),
-                      title: 'title',
-                      description: 'description')),
+              ...List.generate(reminders.length, (index) =>ReminderCard(
+                  order: ReminderModelHive(
+                      reminders[index]!.id,
+                      reminders[index]!.date,
+                      reminders[index]!.title,
+                      reminders[index]!.description))),
+             
             ],
           ),
         ),
