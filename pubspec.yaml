@@ -49,6 +49,7 @@ dependencies:
   equatable: ^2.0.5
   bloc: ^8.1.4
   time_picker_spinner: ^0.0.1
+  pie_chart: ^5.4.0
 
 dev_dependencies:
   flutter_test:

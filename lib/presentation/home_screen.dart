@@ -4,6 +4,7 @@ import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pie_chart/pie_chart.dart';
 import 'package:reminder_app/extension/datetime_extension.dart';
 import 'package:reminder_app/model/reminder_model.dart';
 import 'package:reminder_app/presentation/bloc/reminder_bloc.dart';
@@ -162,17 +163,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? Home(
                               reminders: r,
                             )
-                          :activeIndex == 1
-                          ? Home(
-                              reminders: r.where((element) => element!.date.isAfter(DateTime.now())).toList(),
-                            ): activeIndex == 3
-                          ? Home(
-                              reminders: r.where((element) => element!.date.isBefore(DateTime.now())).toList(),
-                            ):activeIndex == 2
-                              ?  const AddReminder()
-                              : Home(
-                                  reminders: r,
-                                ),
+                          : activeIndex == 1
+                              ? Home(
+                                  reminders: r
+                                      .where((element) =>
+                                          element!.date.isAfter(DateTime.now()))
+                                      .toList(),
+                                )
+                              : activeIndex == 3
+                                  ? Home(
+                                      reminders: r
+                                          .where((element) => element!.date
+                                              .isBefore(DateTime.now()))
+                                          .toList(),
+                                    )
+                                  : activeIndex == 2
+                                      ? const AddReminder()
+                                      : InformationScreen(
+                                          reminders: r,
+                                        ),
                     );
                   },
                 )
@@ -229,7 +238,7 @@ class Home extends StatelessWidget {
 }
 
 class AddReminder extends StatefulWidget {
-   const AddReminder({
+  const AddReminder({
     super.key,
   });
 
@@ -297,7 +306,7 @@ class _AddReminderState extends State<AddReminder> {
               const SizedBox(
                 height: 10.0,
               ),
-               TextWidget(
+              TextWidget(
                 topLabel: 'Title',
                 hintText: 'Title',
                 multiLines: false,
@@ -323,10 +332,11 @@ class _AddReminderState extends State<AddReminder> {
                 onPressed: () async {
                   BlocProvider.of<ReminderBloc>(context).add(AddReminderEvent([
                     ReminderModelHive(
-                        UniqueKey().hashCode,
-                        selectedDate.at(selectedTime),
-                        titleController.text,
-                        descController.text,)
+                      UniqueKey().hashCode,
+                      selectedDate.at(selectedTime),
+                      titleController.text,
+                      descController.text,
+                    )
                   ]));
                 },
                 child: const Text('Insert reminder'),
@@ -335,6 +345,37 @@ class _AddReminderState extends State<AddReminder> {
           ),
         );
       },
+    );
+  }
+}
+
+class InformationScreen extends StatelessWidget {
+  final List<ReminderModelHive?> reminders;
+  const InformationScreen({super.key, required this.reminders});
+
+  @override
+  Widget build(BuildContext context) {
+    Map<String, double> dataMap = {
+      "Incoming": reminders
+          .where((element) => element!.date.isAfter(DateTime.now()))
+          .toList()
+          .length
+          .toDouble(),
+      "Done": reminders
+          .where((element) => element!.date.isBefore(DateTime.now()))
+          .toList()
+          .length
+          .toDouble(),
+    };
+    return PieChart(
+      dataMap: dataMap,
+      animationDuration: const Duration(milliseconds: 800),
+      chartRadius: MediaQuery.of(context).size.width / 3.2,
+      colorList: const [Colors.purple, Colors.purpleAccent],
+      initialAngleInDegree: 0,
+      chartType: ChartType.ring,
+      ringStrokeWidth: 32,
+      centerText: "Notification Usage",
     );
   }
 }
