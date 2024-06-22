@@ -131,14 +131,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 BlocBuilder<ReminderBloc, ReminderState>(
                   builder: (context, state) {
-                    List<ReminderModelHive?> r = [];
+                    List<ReminderModelHive?> remindersInitial = [];
                     if (state is ReminderInitial) {
                       BlocProvider.of<ReminderBloc>(context)
                           .add(const GetReminders());
                     }
                     if (state is ReminderLoadedState) {
-                      r = state.reminders;
-                      print('masuk datanya ${state.reminders}');
+                      remindersInitial = state.reminders;
                     }
                     return Container(
                       width: double.infinity,
@@ -157,18 +156,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: activeIndex == 0
                           ? Home(
-                              reminders: r,
+                              reminders: remindersInitial,
                             )
                           : activeIndex == 1
                               ? Home(
-                                  reminders: r
+                                  reminders: remindersInitial
                                       .where((element) =>
                                           element!.date.isAfter(DateTime.now()))
                                       .toList(),
                                 )
                               : activeIndex == 3
                                   ? Home(
-                                      reminders: r
+                                      reminders: remindersInitial
                                           .where((element) => element!.date
                                               .isBefore(DateTime.now()))
                                           .toList(),
@@ -176,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   : activeIndex == 2
                                       ? const AddReminder()
                                       : InformationScreen(
-                                          reminders: r,
+                                          reminders: remindersInitial,
                                         ),
                     );
                   },
