@@ -101,18 +101,90 @@ class _AddReminderState extends State<AddReminder> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
                 onPressed: () async {
-                  BlocProvider.of<ReminderBloc>(context).add(AddReminderEvent(
-                    ReminderModelHive(
+                  if (selectedDate.at(selectedTime).isBefore(DateTime.now())) {
+                    showWarningDialog(
+                        'Time should be in the future', 'Understand');
+                  } else if (titleController.text.isEmpty ||
+                      descController.text.isEmpty) {
+                    showWarningDialog(
+                        'Title or description cannot be empty', 'Understand');
+                  } else {
+                    BlocProvider.of<ReminderBloc>(context)
+                        .add(AddReminderEvent(ReminderModelHive(
                       UniqueKey().hashCode,
                       selectedDate.at(selectedTime),
                       titleController.text,
                       descController.text,
-                    )
-                  ));
+                    )));
+                    showWarningDialog('Reminder inserted', 'Ok');
+                    titleController.clear();
+                    descController.clear();
+                  }
                 },
                 child: const Text('Insert reminder'),
               ),
             ],
+          ),
+        );
+      },
+    );
+  }
+
+  void showWarningDialog(String message, String btnTitle) {
+    showDialog<bool>(
+      context: context,
+      builder: (context) {
+        Size size = MediaQuery.of(context).size;
+        return Center(
+          child: SizedBox(
+            height: 182,
+            width: size.width,
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.purple,
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(
+                      color: const Color.fromRGBO(220, 233, 245, 1),
+                    ),
+                  ),
+                  height: 150,
+                  width: size.width - 100,
+                  child: Center(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        message,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white),
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          btnTitle,
+                          style: const TextStyle(
+                            color: Colors.purple,
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
+                )
+              ],
+            ),
           ),
         );
       },
