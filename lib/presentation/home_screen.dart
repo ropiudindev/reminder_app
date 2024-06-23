@@ -24,11 +24,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[50],
-        title: const Text(
+        title: Text(
           "Reminder",
           style: TextStyle(
             color: Colors.purple,
-            fontSize: 18,
+            fontSize: 18.sp,
           ),
         ),
         elevation: 0.0,
@@ -40,27 +40,27 @@ class _HomeScreenState extends State<HomeScreen> {
         items: [
           Icon(
             Icons.home,
-            size: 30.0,
+            size: 30.0.spMin,
             color: activeIndex == 0 ? Colors.white : const Color(0xFFC8C9CB),
           ),
           Icon(
             Icons.alarm_on_sharp,
-            size: 30.0,
+            size: 30.0.spMin,
             color: activeIndex == 1 ? Colors.white : const Color(0xFFC8C9CB),
           ),
           Icon(
             Icons.add,
-            size: 30.0,
+            size: 30.0.spMin,
             color: activeIndex == 2 ? Colors.white : const Color(0xFFC8C9CB),
           ),
           Icon(
             Icons.history,
-            size: 30.0,
+            size: 30.0.spMin,
             color: activeIndex == 3 ? Colors.white : const Color(0xFFC8C9CB),
           ),
           Icon(
             Icons.info,
-            size: 30.0,
+            size: 30.0.spMin,
             color: activeIndex == 4 ? Colors.white : const Color(0xFFC8C9CB),
           ),
         ],
@@ -83,8 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: kToolbarHeight,
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0.w,
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -123,8 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 50.0,
+                SizedBox(
+                  height: 50.0.h,
                 ),
                 BlocBuilder<ReminderBloc, ReminderState>(
                   builder: (context, state) {
@@ -143,9 +143,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               MediaQuery.of(context).size.height - 200.0.h,
                         ),
                         decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(30.0),
-                            topRight: Radius.circular(30.0),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30.0.spMin),
+                            topRight: Radius.circular(30.0.spMin),
                           ),
                           color: Colors.grey[100],
                         ),

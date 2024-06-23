@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:reminder_app/model/reminder_model.dart';
 import 'package:reminder_app/presentation/bloc/reminder_bloc.dart';
 import 'package:reminder_app/presentation/page/empty.dart';
@@ -23,8 +24,8 @@ class ReminderList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24.0,
+              padding: EdgeInsets.symmetric(
+                horizontal: 24.0.w,
               ),
               child: reminders.isNotEmpty
                   ? Column(

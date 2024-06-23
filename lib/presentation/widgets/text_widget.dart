@@ -17,7 +17,7 @@ class TextWidget extends StatelessWidget {
     this.prefixIcon,
     this.height = 48.0,
     this.topLabel = "",
-    this.minLines ,
+    this.minLines,
     this.multiLines = false,
     this.maxLines,
     this.controller,
@@ -28,18 +28,19 @@ class TextWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(topLabel),
-        const SizedBox(height: 5.0),
+        SizedBox(height: 5.0.h),
         Container(
           height: ScreenUtil().setHeight(height),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(8.0.spMin),
           ),
           child: TextFormField(
             controller: controller,
             minLines: minLines,
             maxLines: maxLines,
-            keyboardType: multiLines? TextInputType.multiline : TextInputType.text,
+            keyboardType:
+                multiLines ? TextInputType.multiline : TextInputType.text,
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
@@ -52,9 +53,9 @@ class TextWidget extends StatelessWidget {
                 ),
               ),
               hintText: hintText,
-              hintStyle: const TextStyle(
-                fontSize: 14.0,
-                color: Color.fromRGBO(105, 108, 121, 0.7),
+              hintStyle: TextStyle(
+                fontSize: 14.0.spMin,
+                color: const Color.fromRGBO(105, 108, 121, 0.7),
               ),
             ),
           ),

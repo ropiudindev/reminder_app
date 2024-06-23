@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:reminder_app/model/reminder_model.dart';
 
@@ -27,7 +28,7 @@ class InformationUsage extends StatelessWidget {
       colorList: const [Colors.purple, Colors.purpleAccent],
       initialAngleInDegree: 0,
       chartType: ChartType.ring,
-      ringStrokeWidth: 32,
+      ringStrokeWidth: 32.w,
       centerText: "Notification Usage",
     );
   }

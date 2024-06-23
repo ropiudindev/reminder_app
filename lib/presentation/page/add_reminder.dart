@@ -29,7 +29,7 @@ class _AddReminderState extends State<AddReminder> {
     return BlocBuilder<ReminderBloc, ReminderState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(10.0.w),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,8 +45,8 @@ class _AddReminderState extends State<AddReminder> {
                   });
                 },
               ),
-              const SizedBox(
-                height: 10.0,
+              SizedBox(
+                height: 10.0.h,
               ),
               Container(
                 decoration: BoxDecoration(
@@ -61,11 +61,11 @@ class _AddReminderState extends State<AddReminder> {
                   time: selectedTime,
                   is24HourMode: false,
                   isShowSeconds: true,
-                  itemHeight: 40,
+                  itemHeight: 40.h,
                   normalTextStyle:
-                      const TextStyle(fontSize: 24, color: Colors.white),
+                      TextStyle(fontSize: 24.spMin, color: Colors.white),
                   highlightedTextStyle:
-                      const TextStyle(fontSize: 24, color: Colors.blue),
+                      TextStyle(fontSize: 24.spMin, color: Colors.blue),
                   isForce2Digits: true,
                   onTimeChange: (time) {
                     setState(() {
@@ -74,8 +74,8 @@ class _AddReminderState extends State<AddReminder> {
                   },
                 ),
               ),
-              const SizedBox(
-                height: 10.0,
+              SizedBox(
+                height: 10.0.h,
               ),
               TextWidget(
                 topLabel: 'Title',
@@ -84,8 +84,8 @@ class _AddReminderState extends State<AddReminder> {
                 maxLines: 1,
                 controller: titleController,
               ),
-              const SizedBox(
-                height: 10.0,
+              SizedBox(
+                height: 10.0.h,
               ),
               TextWidget(
                 topLabel: 'Description',
@@ -95,8 +95,8 @@ class _AddReminderState extends State<AddReminder> {
                 multiLines: true,
                 controller: descController,
               ),
-              const SizedBox(
-                height: 10.0,
+              SizedBox(
+                height: 10.0.h,
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
@@ -137,7 +137,7 @@ class _AddReminderState extends State<AddReminder> {
         Size size = MediaQuery.of(context).size;
         return Center(
           child: SizedBox(
-            height: 182,
+            height: 182.h,
             width: size.width,
             child: Column(
               children: [
@@ -149,8 +149,8 @@ class _AddReminderState extends State<AddReminder> {
                       color: const Color.fromRGBO(220, 233, 245, 1),
                     ),
                   ),
-                  height: 150,
-                  width: size.width - 100,
+                  height: 150.h,
+                  width: size.width - 100.w,
                   child: Center(
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -158,14 +158,14 @@ class _AddReminderState extends State<AddReminder> {
                     children: [
                       Text(
                         message,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 18.spMin,
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(
-                        height: 20.0,
+                      SizedBox(
+                        height: 20.0.h,
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(

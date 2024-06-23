@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:reminder_app/model/reminder_model.dart';
 
@@ -19,7 +20,7 @@ class ReminderCard extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 150,
+          height: 150.h,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
@@ -34,8 +35,8 @@ class ReminderCard extends StatelessWidget {
               Column(
                 children: [
                   Container(
-                    width: 37,
-                    height: 37,
+                    width: 37.w,
+                    height: 37.w,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color.fromRGBO(221, 40, 81, 0.18),
@@ -49,10 +50,10 @@ class ReminderCard extends StatelessWidget {
                     height: 10.0,
                   ),
                   InkWell(
-                    onTap:onDelete,
+                    onTap: onDelete,
                     child: Container(
-                      width: 37,
-                      height: 37,
+                      width: 37.w,
+                      height: 37.w,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Color.fromRGBO(221, 40, 81, 0.18),
@@ -65,8 +66,8 @@ class ReminderCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
-                width: 25.0,
+              SizedBox(
+                width: 25.0.w,
               ),
               Expanded(
                 child: Column(
@@ -81,22 +82,22 @@ class ReminderCard extends StatelessWidget {
                         fontSize: 16.0,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10.0,
+                    SizedBox(
+                      height: 10.0.h,
                     ),
-                    const SizedBox(
-                      height: 5.0,
+                    SizedBox(
+                      height: 5.0.h,
                     ),
                     textRow('Time ', formatter.format(reminder.date)),
                     textRow('Status ', getStatus(reminder.date)),
-                    const SizedBox(
-                      height: 5.0,
+                    SizedBox(
+                      height: 5.0.h,
                     ),
                     Text(
                       reminder.description,
-                      style: const TextStyle(
-                        color: Color.fromRGBO(19, 22, 33, 1),
-                        fontSize: 14.0,
+                      style: TextStyle(
+                        color: const Color.fromRGBO(19, 22, 33, 1),
+                        fontSize: 14.0.spMin,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -107,8 +108,8 @@ class ReminderCard extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(
-          height: 10.0,
+        SizedBox(
+          height: 10.0.h,
         )
       ],
     );
@@ -124,9 +125,9 @@ Widget textRow(String textOne, String textTwo) {
     children: [
       Text(
         '$textOne:',
-        style: const TextStyle(
-          color: Color.fromRGBO(74, 77, 84, 0.7),
-          fontSize: 14.0,
+        style: TextStyle(
+          color: const Color.fromRGBO(74, 77, 84, 0.7),
+          fontSize: 14.0.spMin,
         ),
       ),
       const SizedBox(
@@ -134,9 +135,9 @@ Widget textRow(String textOne, String textTwo) {
       ),
       Text(
         textTwo,
-        style: const TextStyle(
-          color: Color.fromRGBO(19, 22, 33, 1),
-          fontSize: 14.0,
+        style: TextStyle(
+          color: const Color.fromRGBO(19, 22, 33, 1),
+          fontSize: 14.0.spMin,
         ),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,

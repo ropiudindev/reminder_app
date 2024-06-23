@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 class EmptyState extends StatelessWidget {
@@ -9,12 +10,12 @@ class EmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(top: 30.0),
+        padding: EdgeInsets.only(top: 30.0.h),
         child: Column(
           children: [
             Lottie.asset('assets/animation/empty.json'),
-            const SizedBox(
-              height: 10.0,
+            SizedBox(
+              height: 10.0.h,
             ),
             const Text('No reminder'),
             ElevatedButton(
