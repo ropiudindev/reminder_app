@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reminder_app/model/reminder_model.dart';
 import 'package:reminder_app/presentation/bloc/reminder_bloc.dart';
+import 'package:reminder_app/presentation/page/empty.dart';
 import 'package:reminder_app/presentation/widgets/reminder_card.dart';
 
 class ReminderList extends StatelessWidget {
   final List<ReminderModelHive?> reminders;
+  final Function() onTapAdd;
   const ReminderList({
     super.key,
     required this.reminders,
+    required this.onTapAdd,
   });
 
   @override
@@ -23,22 +26,32 @@ class ReminderList extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 horizontal: 24.0,
               ),
-              child: Column(
-                children: [
-                  ...List.generate(
-                      reminders.length,
-                      (index) => ReminderCard(
-                          onDelete: () {
-                            BlocProvider.of<ReminderBloc>(context)
-                                .add(DeleteReminderEvent(reminders[index]!.id));
-                          },
-                          reminder: ReminderModelHive(
+              child: reminders.isNotEmpty
+                  ? Column(
+                      children: [
+                        ...List.generate(
+                          reminders.length,
+                          (index) => ReminderCard(
+                            onDelete: () {
+                              BlocProvider.of<ReminderBloc>(context).add(
+                                DeleteReminderEvent(
+                                  reminders[index]!.id,
+                                ),
+                              );
+                            },
+                            reminder: ReminderModelHive(
                               reminders[index]!.id,
                               reminders[index]!.date,
                               reminders[index]!.title,
-                              reminders[index]!.description))),
-                ],
-              ),
+                              reminders[index]!.description,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : EmptyState(
+                      onTapAdd: onTapAdd,
+                    ),
             ),
           ],
         );

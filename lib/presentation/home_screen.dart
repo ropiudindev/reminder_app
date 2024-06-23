@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.grey[100]!,
         buttonBackgroundColor: Colors.purple,
+        index: activeIndex,
         items: [
           Icon(
             Icons.home,
@@ -151,7 +152,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.symmetric(
                           vertical: 24.0,
                         ),
-                        child: getWidget(activeIndex, remindersInitial));
+                        child: getWidget(activeIndex, remindersInitial, () {
+                          setState(() {
+                            activeIndex = 2;
+                          });
+                        }));
                   },
                 )
               ],
@@ -162,24 +167,28 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget getWidget(int index, List<ReminderModelHive?> remindersInitial) {
+  Widget getWidget(
+    int index,
+    List<ReminderModelHive?> remindersInitial,
+    Function() onTapAdd,
+  ) {
     switch (index) {
       case 0:
-        return ReminderList(reminders: remindersInitial);
+        return ReminderList(reminders: remindersInitial, onTapAdd: onTapAdd);
       case 1:
         return ReminderList(
-          reminders: remindersInitial
-              .where((element) => element!.date.isAfter(DateTime.now()))
-              .toList(),
-        );
+            reminders: remindersInitial
+                .where((element) => element!.date.isAfter(DateTime.now()))
+                .toList(),
+            onTapAdd: onTapAdd);
       case 2:
         return const AddReminder();
       case 3:
         return ReminderList(
-          reminders: remindersInitial
-              .where((element) => element!.date.isBefore(DateTime.now()))
-              .toList(),
-        );
+            reminders: remindersInitial
+                .where((element) => element!.date.isBefore(DateTime.now()))
+                .toList(),
+            onTapAdd: onTapAdd);
       case 4:
         return InformationUsage(
           reminders: remindersInitial,
