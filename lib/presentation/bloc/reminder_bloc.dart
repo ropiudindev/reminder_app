@@ -19,21 +19,19 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
     });
 
     on<AddReminderEvent>((event, emit) async {
-      for (var reminder in event.reminders) {
         _reminderService.addReminder(
-          reminder!.id,
-          reminder.date,
-          reminder.title,
-          reminder.description,
+          event.reminder.id,
+          event.reminder.date,
+          event.reminder.title,
+          event.reminder.description,
         );
 
         NotificationService().scheduleNotification(
-          id: reminder.id,
-          title: reminder.title,
-          body: reminder.description,
-          scheduledNotificationDateTime: reminder.date,
+          id: event.reminder.id,
+          title: event.reminder.title,
+          body: event.reminder.description,
+          scheduledNotificationDateTime: event.reminder.date,
         );
-      }
 
       add(
         const GetReminders(),

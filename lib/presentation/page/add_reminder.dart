@@ -101,14 +101,14 @@ class _AddReminderState extends State<AddReminder> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
                 onPressed: () async {
-                  BlocProvider.of<ReminderBloc>(context).add(AddReminderEvent([
+                  BlocProvider.of<ReminderBloc>(context).add(AddReminderEvent(
                     ReminderModelHive(
                       UniqueKey().hashCode,
                       selectedDate.at(selectedTime),
                       titleController.text,
                       descController.text,
                     )
-                  ]));
+                  ));
                 },
                 child: const Text('Insert reminder'),
               ),
